@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:badges/badges.dart';
 import 'package:flutter_atlanta_state_management_comparison/bloc/cart/cart_bloc.dart';

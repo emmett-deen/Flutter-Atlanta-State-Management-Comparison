@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_print
 
 import 'package:badges/badges.dart';
-import 'package:flutter_atlanta_state_management_comparison/bloc/screens/bloc_product_detail_screen.dart';
 import 'package:flutter_atlanta_state_management_comparison/get/controllers/cart_controller.dart';
 import 'package:flutter_atlanta_state_management_comparison/widgets/product_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/products_controller.dart';
+import 'get_product_detail_screen.dart';
 
 class GetProductListingScreen extends GetView<ProductsController> {
   const GetProductListingScreen({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class GetProductListingScreen extends GetView<ProductsController> {
                 itemBuilder: (context, index) => InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => BlocProductDetailScreen(
+                            builder: ((context) => GetProductDetailScreen(
                                 product: controller.products[index]))));
                       },
                       child: ProductListTile(

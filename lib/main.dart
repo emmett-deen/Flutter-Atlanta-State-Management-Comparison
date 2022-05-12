@@ -10,8 +10,8 @@ import 'home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put<CartController>(CartController(), permanent: true);
-  Get.put<ProductsController>(ProductsController(), permanent: true);
+  Get.lazyPut<CartController>(() => CartController());
+  Get.lazyPut<ProductsController>(() => ProductsController());
   runApp(const MyApp());
 }
 
