@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_print
 
 import 'package:badges/badges.dart';
-import 'package:flutter_atlanta_state_management_comparison/get/controllers/cart_controller.dart';
 import 'package:flutter_atlanta_state_management_comparison/riverpod/providers/cart_provider.dart';
 import 'package:flutter_atlanta_state_management_comparison/riverpod/providers/products_provider.dart';
+import 'package:flutter_atlanta_state_management_comparison/riverpod/screens.dart/riverpod_product_detail_screen.dart';
 import 'package:flutter_atlanta_state_management_comparison/widgets/product_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,9 +46,9 @@ class RiverpodProductListingScreen extends ConsumerWidget {
                 itemCount: products.length,
                 itemBuilder: (context, index) => InkWell(
                       onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: ((context) => GetProductDetailScreen(
-                        //         product: products[index]))));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) => RiverpodProductDetailScreen(
+                                product: products[index]))));
                       },
                       child: ProductListTile(
                         product: products[index],
