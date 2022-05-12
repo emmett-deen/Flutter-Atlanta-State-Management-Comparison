@@ -3,6 +3,7 @@ import 'package:flutter_atlanta_state_management_comparison/bloc/cart/cart_bloc.
 import 'package:flutter_atlanta_state_management_comparison/bloc/products/products_bloc.dart';
 import 'package:flutter_atlanta_state_management_comparison/get/controllers/cart_controller.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import 'get/controllers/products_controller.dart';
@@ -12,7 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.lazyPut<CartController>(() => CartController());
   Get.lazyPut<ProductsController>(() => ProductsController());
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
