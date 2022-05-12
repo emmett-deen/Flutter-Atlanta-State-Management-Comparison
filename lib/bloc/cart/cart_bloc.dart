@@ -11,6 +11,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     Map<Product, int> cart = {};
 
     on<CartEvent>((event, emit) {
+      emit(CartState.loading(cart));
       event.when(addProduct: (Product product) {
         cart.putIfAbsent(event.product, () => 0);
         cart[event.product] = (cart[event.product] ?? 0) + 1;
