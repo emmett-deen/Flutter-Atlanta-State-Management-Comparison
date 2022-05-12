@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
           title: const Text('Bloc'),
           onTap: (){
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const BlocProductListingScreen(),
+              builder: (context) => BlocProductListingScreen(),
             ));
           },
         )
