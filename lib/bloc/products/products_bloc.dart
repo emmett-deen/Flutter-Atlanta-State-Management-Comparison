@@ -11,13 +11,10 @@ part 'products_bloc.freezed.dart';
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ProductsBloc() : super(const _Loading()) {
     on<ProductsEvent>((event, emit) async {
-      switch (event.runtimeType) {
-        case _LoadProducts:
-          emit(const _Loading());
-          emit(_Show(await APIService().getAllProducts()));
-          break;
-        default:
-      }
+      await event.when(loadProducts: () async {
+        emit(const _Loading());
+        emit(_Show(await APIService().getAllProducts()));
+      });
     });
   }
 }

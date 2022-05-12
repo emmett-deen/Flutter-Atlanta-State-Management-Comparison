@@ -4,6 +4,7 @@ import 'package:flutter_atlanta_state_management_comparison/bloc/products/produc
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/models/product.dart';
 import '../products/products_bloc.dart';
 
 class BlocProductListingScreen extends StatelessWidget {
@@ -27,16 +28,21 @@ class BlocProductListingScreen extends StatelessWidget {
             actions: [
               BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
-                  return Badge(
-                    badgeContent:
-                        Text('${state.cart.values.reduce((a, b) => a + b)}'),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.shopping_cart,
+                  return state.when(show: (Map<Product, int> cart) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Badge(
+                        badgeContent: Text(state.cart.isNotEmpty
+                            ? '${state.cart.values.reduce((a, b) => a + b)}'
+                            : '0'),
+                        showBadge: state.cart.isNotEmpty,
+                        child: IconButton(
+                          icon: const Icon(Icons.shopping_cart),
+                          onPressed: () {},
+                        ),
                       ),
-                      onPressed: () {},
-                    ),
-                  );
+                    );
+                  });
                 },
               )
             ],
@@ -46,11 +52,41 @@ class BlocProductListingScreen extends StatelessWidget {
             return state.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
                 show: (products) => ListView.builder(
-                  itemCount: products.length,
+                    itemCount: products.length,
                     itemBuilder: (context, index) => ListTile(
-                      title: Text(products[index].title),
-                      subtitle: Text(products[index].priceToString()),
-                    )));
+                        title: Text(products[index].title),
+                        subtitle: Text(products[index].priceToString()),
+                        trailing: BlocBuilder<CartBloc, CartState>(
+                          builder: (context, state) {
+                            return SizedBox(
+                              width: 150,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.remove),
+                                    onPressed:
+                                        (state.cart[products[index]] ?? 0) <= 0
+                                            ? null
+                                            : () {
+                                                context.read<CartBloc>().add(
+                                                    CartEvent.removeProduct(
+                                                        products[index]));
+                                              },
+                                  ),
+                                  Text('${state.cart[products[index]] ?? 0}'),
+                                  IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {
+                                      context.read<CartBloc>().add(
+                                          CartEvent.addProduct(products[index]));
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ))));
           }))),
     );
   }

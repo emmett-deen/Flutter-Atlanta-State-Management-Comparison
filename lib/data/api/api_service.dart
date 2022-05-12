@@ -11,7 +11,7 @@ class APIService {
     Product(id: 'p5', title: 'White Shirt', price: 200),
   ];
 
-  Future<void> mockLoadTime() {
+  Future<void> mockLoadTime(){
     return Future.delayed(Duration(milliseconds: Random().nextInt(500) + 250));
   }
 
